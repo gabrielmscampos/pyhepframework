@@ -7,8 +7,12 @@ license = "HEP data analysis in CMS using Python"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+uproot3 = "^3.14.4"
+injector = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
+black = "^22.1.0"
+tqdm = "^4.62.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
