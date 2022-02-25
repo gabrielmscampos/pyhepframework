@@ -5,6 +5,7 @@
 ### Custom ###
 python_modules
 datasets
+poetry.lock
 
 ### Linux ###
 *~
