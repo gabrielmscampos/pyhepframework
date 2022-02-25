@@ -29,9 +29,7 @@ class EventLoop:
         """
         Start event loop
         """
-        dataset = self.provider.read_file(
-            self.provider.resolve_path() + self.config.get("file_path")
-        )
+        dataset = self.provider.read_file(self.config.get("file_path"))
         events = self.provider.parse_events(dataset, objects=self.config.get("objects"))
 
         print("Number of events considered: ", len(events))
