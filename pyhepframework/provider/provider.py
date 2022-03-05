@@ -1,4 +1,3 @@
-import os
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional
 
@@ -10,7 +9,7 @@ class DatasetProvider(ABC):
         pass
 
     @abstractmethod
-    def resolve_path(self) -> str:
+    def resolve_path(self, file_path: str) -> str:
         """
         Resolve prefix to access dataset depending on env
         """
@@ -20,7 +19,7 @@ class DatasetProvider(ABC):
         """
         Read chunk from filepath
         """
-        file_path = os.path.join(self.resolve_path(), file_path)
+        file_path = self.resolve_path(file_path)
         return uproot.open(file_path)
 
     @staticmethod

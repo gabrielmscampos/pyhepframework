@@ -1,12 +1,18 @@
+import os
+
 from .provider import DatasetProvider
 
 
 class DESY(DatasetProvider):
     def __init__(self) -> None:
-        pass
+        self.base_path = "/pnfs/desy.de/cms/tier2"
 
-    def resolve_path(self) -> str:
+    def resolve_path(self, file_path: str) -> str:
         """
         Resolve prefix to access dataset depending on env
         """
-        return "/pnfs/desy.de/cms/tier2/"
+        if file_path.startswith(self.base_path):
+            return file_path
+        if file_path.startswith("/"):
+            file_path = file_path[1:]
+        return os.path.join(self.base_path, file_path)

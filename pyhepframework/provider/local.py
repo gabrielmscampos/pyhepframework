@@ -5,8 +5,8 @@ class LocalProvider(DatasetProvider):
     def __init__(self) -> None:
         pass
 
-    def resolve_path(self) -> str:
+    def resolve_path(self, file_path: str) -> str:
         """
         Resolve prefix to access dataset depending on env
         """
-        return "./datasets"
+        return file_path
