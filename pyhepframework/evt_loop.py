@@ -30,13 +30,15 @@ class EventLoop:
         Start event loop
         """
         dataset = self.provider.read_file(self.config.get("file_path"))
-        events = self.provider.parse_events(dataset, objects=self.config.get("objects"))
+        events, _ = self.provider.parse_events(dataset, objects=self.config.get("objects"))
         self.evt_handler.set_config(self.config)
 
         if HAS_TQDM:
             events = tqdm.tqdm(events)
 
         for event in events:
+            # Parsing <Record ...> as Dict[] is much more performatic to the Event Loop
+            event = {k: event.__getattr__(k) for k in self.config.get("objects")}
             obj = self.evt_handler.main(event)
             self.__output.append(obj)
 
