@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Optional
+from typing import List, Dict, Tuple
 
 import uproot
+from awkward.highlevel import Array
 
 
 class DatasetProvider(ABC):
@@ -24,22 +25,11 @@ class DatasetProvider(ABC):
 
     @staticmethod
     def parse_events(
-        dataset: uproot.reading.ReadOnlyDirectory, objects: Optional[List]
-    ) -> List[Dict]:
+        dataset: uproot.reading.ReadOnlyDirectory, objects: List[str]
+    ) -> Tuple[Array, int]:
         """
-        Parse events into List[Dict]
+        Parse events into Array
         """
         events = dataset.get("Events;1")
-        size = len(events.get("run").array())
-
-        if objects is None:
-            objects = events.keys()
-
-        result = [{k: None for k in objects} for _ in range(size)]
-
-        for object in objects:
-            values = events.get(object).array()
-            for idx, value in enumerate(values):
-                result[idx][object] = value
-
-        return result
+        entries = events.num_entries
+        return events.arrays(objects), entries
