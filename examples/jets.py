@@ -8,7 +8,7 @@ from pyhepframework.evt_loop import EventLoop
 
 config = {
     "dataset_year": "2016preVFP",
-    "file_path": "738A8F4E-59B1-4441-9D99-48A1B3EEC981.root",
+    "file_path": "./datasets/738A8F4E-59B1-4441-9D99-48A1B3EEC981.root",
     "objects": [
         "nJet",
         "Jet_jetId",
@@ -79,6 +79,12 @@ class MyHandler(EventHandler):
         leading_bjet, trailing_bjet = self.find_leading_and_trailing_bjets(
             event, selected_jets, self.config.get("btagging").get("algorithm")
         )
+        return {
+            "n_jets": n_jets,
+            "n_bjets": n_bjets,
+            "idx_leading_bjet": leading_bjet,
+            "idx_trailing_bjet": trailing_bjet
+        }
 
     @staticmethod
     def is_bjet(btag: float, algorithm: str, year: str, working_point: str) -> bool:
@@ -162,3 +168,5 @@ if __name__ == "__main__":
     evt_handler = MyHandler()
     evt_loop = EventLoop(config, provider, evt_handler)
     evt_loop.start()
+    result = evt_loop.result()
+    print(result[0])
