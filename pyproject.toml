@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhepframework"
-version = "0.5.0"
+version = "0.6.0"
 description = ""
 authors = ["Gabriel Moreira <gabrielmscampos@gmail.com>"]
 license = "HEP data analysis in CMS using Python"
