@@ -3,7 +3,7 @@ from .provider import DatasetProvider
 
 class CERN(DatasetProvider):
     def __init__(self, redirector: str) -> None:
-        self.protocol = "root://" # XRootD
+        self.protocol = "root://"  # XRootD
         self.redirector = redirector
 
     def resolve_path(self, file_path: str) -> str:
